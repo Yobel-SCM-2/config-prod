@@ -4,36 +4,36 @@ spring:
 
 logging:
   level:
-    root: WARN
-    com.uguimar: INFO
-    org.springframework.web: WARN
-    org.springframework.data.r2dbc: WARN
-    org.springframework.cloud: WARN
-    reactor.netty: WARN
+    root: ${LOG_LEVEL_ROOT:WARN}
+    com.uguimar: ${LOG_LEVEL_APP:INFO}
+    org.springframework.web: ${LOG_LEVEL_SPRING_WEB:WARN}
+    org.springframework.data.r2dbc: ${LOG_LEVEL_R2DBC:WARN}
+    org.springframework.cloud: ${LOG_LEVEL_SPRING_CLOUD:WARN}
+    reactor.netty: ${LOG_LEVEL_REACTOR:WARN}
 
 management:
   endpoints:
     web:
       exposure:
-        include: "health,info,prometheus"
+        include: ${ACTUATOR_ENDPOINTS:"health,info,prometheus"}
   endpoint:
     health:
-      show-details: when_authorized
+      show-details: ${HEALTH_DETAILS:when_authorized}
   metrics:
     export:
       prometheus:
-        enabled: true
+        enabled: ${PROMETHEUS_ENABLED:true}
   tracing:
     sampling:
-        probability: 0.1
+      probability: ${TRACING_PROBABILITY:0.1}
 
 cors:
-  allowed-origins: "https://api.uguimar.com,https://admin.uguimar.com"
-  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
-  allowed-headers: "Origin,Content-Type,Accept,Authorization"
-  max-age: 3600
+  allowed-origins: ${CORS_ORIGINS:"https://api.uguimar.com,https://admin.uguimar.com"}
+  allowed-methods: ${CORS_METHODS:GET,POST,PUT,DELETE,OPTIONS}
+  allowed-headers: ${CORS_HEADERS:"Origin,Content-Type,Accept,Authorization"}
+  max-age: ${CORS_MAX_AGE:3600}
 
 server:
   error:
-    include-message: never
-    include-binding-errors: never
+    include-message: ${ERROR_INCLUDE_MESSAGE:never}
+    include-binding-errors: ${ERROR_INCLUDE_BINDING:never}

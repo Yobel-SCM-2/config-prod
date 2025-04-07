@@ -1,15 +1,15 @@
 server:
-  port: 8761
+  port: ${EUREKA_PORT:8761}
 
 eureka:
   instance:
-    hostname: service-discovery
-    prefer-ip-address: true
+    hostname: ${EUREKA_HOSTNAME:service-discovery}
+    prefer-ip-address: ${EUREKA_PREFER_IP:true}
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
-    enable-self-preservation: true
-    renewal-percent-threshold: 0.85
+    enable-self-preservation: ${EUREKA_SELF_PRESERVATION:true}
+    renewal-percent-threshold: ${EUREKA_RENEWAL_THRESHOLD:0.85}
