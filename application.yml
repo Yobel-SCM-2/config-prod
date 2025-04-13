@@ -5,7 +5,7 @@ spring:
 logging:
   level:
     root: ${LOG_LEVEL_ROOT:WARN}
-    com.uguimar: ${LOG_LEVEL_APP:INFO}
+    com.yobel: ${LOG_LEVEL_APP:INFO}
     org.springframework.web: ${LOG_LEVEL_SPRING_WEB:WARN}
     org.springframework.data.r2dbc: ${LOG_LEVEL_R2DBC:WARN}
     org.springframework.cloud: ${LOG_LEVEL_SPRING_CLOUD:WARN}
@@ -28,7 +28,7 @@ management:
       probability: ${TRACING_PROBABILITY:0.1}
 
 cors:
-  allowed-origins: ${CORS_ORIGINS:"https://api.uguimar.com,https://admin.uguimar.com"}
+  allowed-origins: ${CORS_ORIGINS:"https://api.yobel.com,https://admin.yobel.com"}
   allowed-methods: ${CORS_METHODS:GET,POST,PUT,DELETE,OPTIONS}
   allowed-headers: ${CORS_HEADERS:"Origin,Content-Type,Accept,Authorization"}
   max-age: ${CORS_MAX_AGE:3600}
