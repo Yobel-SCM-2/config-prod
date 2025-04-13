@@ -1,0 +1,60 @@
+server:
+  port: 8081
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:postgres-auth}:${DB_PORT:5432}/${DB_NAME:auth_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    properties:
+      ssl: true
+  security:
+    filter:
+      order: -100
+  grpc:
+    server:
+      port: 9091
+      in-process-name: auth-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://service-discovery:8761/eureka/}
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    hostname: ${HOSTNAME:auth-ms}
+    instance-id: ${spring.application.name}:${random.uuid}
+    appname: ${spring.application.name}
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+
+jwt:
+  secret: ${JWT_SECRET}  # No incluir valor por defecto en producción
+  access-token-expiration: 1800000   # 30 minutos
+  refresh-token-expiration: 604800000  # 7 días
+
+logging:
+  level:
+    root: WARN
+    com.yobel.authms: INFO
+    org.springframework.security: WARN
+    org.springframework.data.r2dbc: WARN
+    reactor.netty: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health", "info", "prometheus"]
+  endpoint:
+    health:
+      show-details: when_authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  tracing:
+    sampling:
+      probability: 0.1
